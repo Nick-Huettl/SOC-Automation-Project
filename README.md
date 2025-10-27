@@ -23,4 +23,4 @@ https://www.youtube.com/watch?v=Xh9AP-x06jU
 - Integrate OpenAI to generate responses to simulated attacks.
 - Send the AI-generated responses & alerts to Slack.
 
-## Initial Setup
+## Setup
