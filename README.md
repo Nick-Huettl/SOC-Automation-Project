@@ -35,8 +35,17 @@ Once installed, I could go over to my host machine's browser and enter the Ubunt
 
 <img width="1640" height="938" alt="SplunkInstalledUbuntu" src="https://github.com/user-attachments/assets/f2ee9743-ac68-403d-aef4-57541504d287" />
 
+With Splunk up, there were a few things that needed to be configured, such as creating a new index that would eventually display the Windows 11 telemetry and logs.
 
+However, I needed to connect the Windows 11 VM and the Splunk instance, so I went back to the Splunk website and got the install for the Splunk forwarder. This would allow the information to be sent over to Splunk once configured properly. 
 
+<img width="1915" height="974" alt="VMForwardingTelemetrySplunk" src="https://github.com/user-attachments/assets/bf5fb0ae-7552-4019-92db-8e1cf5b0c1d5" />
+
+Now that Splunk is receiving the telemetry and logs, I could test to ensure that Splunk would receive the brute force attack attempt. This was done by simply trying to RDP into the Windows 11 machine unsuccessfully with the wrong password. This can then be found using the 'EventCode=4625' query to narrow the logs down to unsuccessful Window logon attempts.
+
+<img width="1713" height="903" alt="FailedAttemptsRDPTest" src="https://github.com/user-attachments/assets/ac9bd3f3-5fe2-462f-b00e-18034010249b" />
+
+<img width="1919" height="1076" alt="LoggedFailedRDPAttempts" src="https://github.com/user-attachments/assets/d2f885df-5cf6-486a-9a0c-832ea2daf476" />
 
 
 
