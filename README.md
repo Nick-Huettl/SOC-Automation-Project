@@ -53,7 +53,7 @@ Now that Splunk is receiving the telemetry and logs, I tested to ensure that Spl
 
 This was done by attempting several failed RDP logins into the Windows 11 machine. 
 
- I verified these events by using the 'EventCode=4625' query to narrow the logs down to unsuccessful Window logon attempts.
+ I verified these events by using the 'EventCode=4625' query to narrow the logs down to unsuccessful Windows logon attempts.
 
 <img width="1713" height="903" alt="FailedAttemptsRDPTest" src="https://github.com/user-attachments/assets/ac9bd3f3-5fe2-462f-b00e-18034010249b" />
 
@@ -61,7 +61,7 @@ This was done by attempting several failed RDP logins into the Windows 11 machin
 
 ### Installing n8n (Automation Platform)
 
-I could now move on to the second Ubuntu machine to install n8n, which would help organize the workflow and connects Splunk, OpenAI, and Slack together.
+I could now move on to the second Ubuntu machine to install n8n, which helps organize the workflow and connects Splunk, OpenAI, and Slack together.
 
 <img width="1780" height="950" alt="n8nInstalled" src="https://github.com/user-attachments/assets/3d672abf-e344-432b-8a28-3e57156ab750" />
 
@@ -89,13 +89,13 @@ With the AI prompt ready, I moved to Slack to create a dedicated alerts channel 
 
 <img width="1628" height="630" alt="SlackTest" src="https://github.com/user-attachments/assets/c7b6968c-11bd-4053-a990-cdaa304f954c" />
 
-### Testing the Workflow
+### Workflow Testing
 
 After confirming that n8n would send its response to Slack, I ran the workflow using the RDP failed logon attempts from earlier to see what the AI-generated response would be to the threat.
 
 <img width="1915" height="968" alt="FirstAIResponseAttempt" src="https://github.com/user-attachments/assets/806a933a-5a8c-472c-9bbb-6f64e1908d20" />
 
-### Adding Threat Intelligence
+### Integrating Threat Intelligence
 
 The responses were working correctly, however, because I was testing the attack through my host machine, it wouldn't give any threat intelligence, as the source IP was private.
 
@@ -113,18 +113,24 @@ Final Workflow:
 
 ### Final Output
 
-After running the final workflow with the hardcoded malicious IP address, AI generated this response for this simulated brute force attack.
+After running the final workflow with the hardcoded malicious IP address, AI generated this response for the simulated brute force attack.
 
 <img width="1897" height="867" alt="AIOutputMaliciousIP" src="https://github.com/user-attachments/assets/5285cf67-8609-4634-8905-c6ab973772ee" />
 
+### Workflow Summary
 
+1. Windows 11 VM generates the failed logon event.
+2. Splunk detects the brute-force attempt and triggers the alert.
+3. n8n receives the alert via webhook.
+4. OpenAI summarizes the event, enriches it with AbuseIPDB, assigns severity, and recommends actions.
+5. Slack receives the final formatted alert message for review.
 
+## Lessons Learned
 
+Working through this project gave me a better understanding of different tools, such as Virtual Machines (VMs) and configuring Splunk. While I have used Splunk before, it taught me more about the backend, such as creating indexes and forwarding the logs to that specific index. Also, I never had experience with a tool like n8n before, but it showed me how powerful workflow automation can be when paired with APIs and AI models.
 
+I found this project very interesting, as AI can be a very useful tool when trying to quickly analyze events and produce a meaningful summary and recommended next actions for a threat, which could save someone a lot of time during a real investigation. While AI is a very powerful tool, I don't think it could ever be fully relied on in these scenarios, however, it could be used to support and enhance human decision-making by reducing some of the more repetitive tasks. 
 
-
-
-
-
+I also learned the importance of testing in this project. As I was testing each portion of the project, I ran into some issues with configurations, such as connecting the forwarder to the Splunk index I created or n8n failing to execute a task and giving an error. These issues helped me to find solutions to these problems through testing and strengthened my problem-solving skills. Overall, this project gave me a practical look at how AI and automation can support, but not replace, human decision-making in cybersecurity operations.
 
 
